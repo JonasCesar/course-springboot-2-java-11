@@ -1,6 +1,7 @@
 package com.jonas.course.resources;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -9,26 +10,25 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.jonas.course.entities.Order;
 import com.jonas.course.entities.User;
-import com.jonas.course.services.OrderService;
+import com.jonas.course.services.UserService;
 
 @RestController
-@RequestMapping(value = "/orders")
-public class UserResource {
+@RequestMapping(value = "/users")
+public class OrderResource {
 	
 	@Autowired
-	private OrderService service;
+	private UserService service;
 	
 	@GetMapping
-	public ResponseEntity<List<Order>> findAll(){
-		List<Order> list = service.findAll();
+	public ResponseEntity<List<User>> findAll(){
+		List<User> list = service.findAll();
 		return ResponseEntity.ok().body(list);
 	}
 	
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<Order> findById(@PathVariable Long id){
-		Order obj = service.findById(id);
+	public ResponseEntity<User> findById(@PathVariable Long id){
+		User obj = service.findById(id);
 		return ResponseEntity.ok().body(obj);
 	}
 
