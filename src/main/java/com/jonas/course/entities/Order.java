@@ -2,7 +2,9 @@ package com.jonas.course.entities;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,10 +12,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.databind.jsonFormatVisitors.JsonFormatTypes;
 import com.jonas.course.entities.enums.OrderStatus;
 
 @Entity
@@ -33,6 +35,9 @@ public class Order implements Serializable{
 	@ManyToOne
 	@JoinColumn(name = "client_id")
 	private User client;
+	
+	@OneToMany(mappedBy = "id.order")
+	private Set<OrderItem> items = new HashSet<>();
 	
 	private Order() {
 		
@@ -61,6 +66,12 @@ public class Order implements Serializable{
 	public User getClient() {
 		return client;
 	}
+	
+	public Set<OrderItem> getItems(){
+		return items;
+	}
+	
+	//-------------------------------
 
 	public void setId(Long id) {
 		this.id = id;
